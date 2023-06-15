@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Lista de pacientes";
+}
+
+<div class="text-center">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a role="button" class="btn btn-primary" asp-controller="Paciente" asp-action="Create">Adicionar novo paciente</a>
+    </div>
+    <h1 class="display-5">Lista de pacientes</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">CPF</th>
+                <th scope="col">Data de nascimento</th>
+                <th scope="col">Sexo</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">E-mail</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Wallison</td>
+                <td>0000099</td>
+                <td>05/10/1992</td>
+                <td>Masculino</td>
+                <td>8199557788</td>
+                <td>w@teste.com</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Ações">
+                        <a role="button" class="btn btn-outline-secondary" asp-controller="Paciente" asp-action="Edit">Editar</a>
+                        <a role="button" class="btn btn-outline-danger" asp-controller="Paciente" asp-action="Delete">Excluir</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>0000099</td>
+                <td>05/10/1992</td>
+                <td>Masculino</td>
+                <td>8199557788</td>
+                <td>w@teste.com</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Ações">
+                        <a role="button" class="btn btn-outline-secondary" asp-controller="Paciente" asp-action="Edit">Editar</a>
+                        <a role="button" class="btn btn-outline-danger" asp-controller="Paciente" asp-action="Delete">Excluir</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Larry the Bird</td>
+                <td>0000099</td>
+                <td>05/10/1992</td>
+                <td>Masculino</td>
+                <td>8199557788</td>
+                <td>w@teste.com</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Ação">
+                        <a role="button" class="btn btn-outline-secondary" asp-controller="Paciente" asp-action="Edit">Editar</a>
+                        <a role="button" class="btn btn-outline-danger" asp-controller="Paciente" asp-action="Delete">Excluir</a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>
