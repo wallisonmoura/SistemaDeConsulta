@@ -10,6 +10,7 @@ builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequ
 
 builder.Services.AddDbContext<ApplicationDBContext>();
 builder.Services.AddScoped<IValidator<CreatePacienteViewModel>, CreatePacienteValidator>();
+builder.Services.AddScoped<IValidator<EditPacienteViewModel>, EditPacienteValidator>();
 
 var app = builder.Build();
 

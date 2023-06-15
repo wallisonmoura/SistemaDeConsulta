@@ -1,4 +1,4 @@
-﻿@model SistemaDeConsulta.ViewModels.Pacientes.CreatePacienteViewModel
+﻿@model SistemaDeConsulta.ViewModels.Pacientes.CreatePacienteViewModel;
 
 @{
     ViewData["Title"] = "Criar paciente";
@@ -16,7 +16,7 @@
     </div>
     <div class="col-md-4">
         <label asp-for="CPF" class="form-label"></label>
-        <input asp-for="CPF" data-val="true" data-val-regex-pattern="^\d{11}$" class="form-control">
+        <input asp-for="CPF" data-val="true" data-val-regex-pattern="^\d{11}$" mask="999.999.999-99" class="form-control">
         <span asp-validation-for="CPF" class="text-danger"></span>
     </div>
     <div class="col-md-4">

@@ -10,10 +10,10 @@ namespace SistemaDeConsulta.Validators.Pacientes
         public CreatePacienteValidator(ApplicationDBContext context) 
         {
             RuleFor(x => x.Nome).NotEmpty().WithMessage("Campo obrigatório.")
-                .MaximumLength(100).WithMessage("O nome deve ter até {MaxLength} caracteres.");
+                .MaximumLength(100).WithMessage("O nome deve ter até 100 caracteres.");
 
             RuleFor(x => x.CPF).NotEmpty().WithMessage("Campo obrigatório.")
-                .Must(cpf => Regex.Replace(cpf, "[^0-9]", "").Length == 11).WithMessage("O CPF deve ter até {MaxLength} caracteres.")
+                .Must(cpf => Regex.Replace(cpf, "[^0-9]", "").Length == 11).WithMessage("O CPF deve ter até 11 caracteres.")
                 .Must(cpf => !context.Pacientes.Any(p => p.CPF == cpf)).WithMessage("Este CPF já está em uso.");
 
             RuleFor(x => x.DataNascimento).NotEmpty().WithMessage("Campo obrigatório.")
