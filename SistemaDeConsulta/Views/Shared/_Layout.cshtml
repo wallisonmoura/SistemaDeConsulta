@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var currentController = ViewContext.RouteData.Values["Controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["Action"]?.ToString();
+}
+
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="utf-8" />
@@ -7,6 +12,13 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SistemaDeConsulta.styles.css" asp-append-version="true" />
+    <style>
+        .nav-item.active .nav-link {
+            background-color: #E6E6FA;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -19,11 +31,14 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
+                        <li class="nav-item @(currentController == "Home" && currentAction == "Index" ? "active" : "")">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Página inicial</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @(currentController == "Paciente" ? "active" : "")">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Paciente" asp-action="Index">Pacientes</a>
+                        </li>
+                        <li class="nav-item @(currentController == "TipoExame" ? "active" : "")">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="TipoExame" asp-action="Index">Tipos de exames</a>
                         </li>
                     </ul>
                 </div>

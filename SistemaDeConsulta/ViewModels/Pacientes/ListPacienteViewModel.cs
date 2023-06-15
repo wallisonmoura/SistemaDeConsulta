@@ -1,9 +1,8 @@
 ﻿using SistemaDeConsulta.Models.Enums;
-using System.ComponentModel.DataAnnotations;
 
 namespace SistemaDeConsulta.ViewModels.Pacientes
 {
-    public class ListPacienteViewModel
+    public class ListTipoExamesViewModel
     {
         public int Id { get; set; }
         public string Nome { get; set; } = string.Empty;

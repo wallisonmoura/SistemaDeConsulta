@@ -2,7 +2,6 @@
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using SistemaDeConsulta.Data.Context;
 using SistemaDeConsulta.Models.Entities;
 using SistemaDeConsulta.Models.Enums;
@@ -30,7 +29,7 @@ namespace SistemaDeConsulta.Controllers
         {
             var pacientes = _dbContext.Pacientes.ToList();
 
-            var viewModelList = pacientes.Select(p => new ListPacienteViewModel
+            var viewModelList = pacientes.Select(p => new ListTipoExamesViewModel
             {
                 Id = p.Id,
                 Nome = p.Nome,

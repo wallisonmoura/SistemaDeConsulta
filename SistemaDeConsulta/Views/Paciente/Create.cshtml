@@ -16,7 +16,7 @@
     </div>
     <div class="col-md-4">
         <label asp-for="CPF" class="form-label"></label>
-        <input asp-for="CPF" data-val="true" data-val-regex-pattern="^\d{11}$" mask="999.999.999-99" class="form-control">
+        <input asp-for="CPF" class="form-control">
         <span asp-validation-for="CPF" class="text-danger"></span>
     </div>
     <div class="col-md-4">
@@ -31,12 +31,12 @@
     </div>
     <div class="col-md-4">
         <label asp-for="Telefone" class="form-label"></label>
-        <input asp-for="Telefone" data-val="true" data-val-regex-pattern="^[\s\S]*\S[\s\S]*$" class="form-control">
+        <input asp-for="Telefone" class="form-control">
         <span asp-validation-for="Telefone" class="text-danger"></span>
     </div>
     <div class="col-md-4">
         <label asp-for="Email" class="form-label">E-mail</label>
-        <input asp-for="Email" data-val="true" data-val-regex-pattern="^[\s\S]*\S[\s\S]*$" class="form-control">
+        <input asp-for="Email" class="form-control">
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
     <div class="d-flex gap-2 justify-content-md-end">
