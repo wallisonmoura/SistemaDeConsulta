@@ -10,13 +10,12 @@ namespace SistemaDeConsulta.ViewModels.Pacientes
 
         public string CPF { get; set; } = string.Empty;
 
-        [Display(Name = "Data de nascimento")]
+        [Display(Name = "Data de Nascimento")]
         [DataType(DataType.Date)]
         public DateTime DataNascimento { get; set; }
 
         public SexoEnum Sexo { get; set; }
 
-        [RegularExpression(@"^\([0-9]{2}\) [0-9]{4,5}-[0-9]{4}$", ErrorMessage = "Formato de telefone inválido. Utilize o formato (99) 99999-9999.")]
         public string Telefone { get; set; }
 
         public string Email { get; set; }

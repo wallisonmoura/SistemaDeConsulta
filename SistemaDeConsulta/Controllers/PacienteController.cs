@@ -57,39 +57,48 @@ namespace SistemaDeConsulta.Controllers
         [HttpPost]
         public IActionResult Create(CreatePacienteViewModel dados)
         {
-            var validacao = _createPacienteValidator.Validate(dados);
-
-            if (!validacao.IsValid)
+            try
             {
-                ViewBag.Sexo = new[]
+                var validacao = _createPacienteValidator.Validate(dados);
+
+                if (!validacao.IsValid)
                 {
+                    ViewBag.Sexo = new[]
+                    {
                     new SelectListItem { Text = "Masculino", Value = SexoEnum.Masculino.ToString()},
                     new SelectListItem { Text = "Feminino", Value = SexoEnum.Feminino.ToString()},
                 };
 
-                validacao.AddToModelState(ModelState, string.Empty);
-                return View(dados);
-            }
+                    validacao.AddToModelState(ModelState, string.Empty);
+                    return View(dados);
+                }
 
-            var paciente = new Paciente
+                var paciente = new Paciente
+                {
+                    Nome = dados.Nome,
+                    CPF = Regex.Replace(dados.CPF, "[^0-9]", ""),
+                    DataNascimento = dados.DataNascimento,
+                    Sexo = dados.Sexo,
+                    Telefone = dados.Telefone,
+                    Email = dados.Email
+                };
+
+                _dbContext.Pacientes.Add(paciente);
+                TempData["MensagemSucesso"] = "Paciente cadastrado com sucesso!";
+                _dbContext.SaveChanges();
+
+                return RedirectToAction("Index");
+            } catch (Exception erro)
             {
-                Nome = dados.Nome,
-                CPF = Regex.Replace(dados.CPF, "[^0-9]", ""),
-                DataNascimento = dados.DataNascimento,
-                Sexo = dados.Sexo,
-                Telefone = dados.Telefone,
-                Email = dados.Email
-            };
-
-            _dbContext.Pacientes.Add(paciente);
-            _dbContext.SaveChanges();
-
-            return RedirectToAction("Index");
+                TempData["MensagemErro"] = $"Ops, não conseguimos cadastrar seu paciente, tente novamante, detalhe do erro: {erro.Message}";
+                return RedirectToAction("Index");
+            }
         }
 
         public IActionResult Edit(int id) 
         {
             var paciente = _dbContext.Pacientes.Find(id);
+
             if (paciente != null)
             {
                 ViewBag.Sexo = new[]
@@ -116,38 +125,47 @@ namespace SistemaDeConsulta.Controllers
         [HttpPost]
         public IActionResult Edit(int id, EditPacienteViewModel dados)
         {
-            var validacao = _editPacienteValidator.Validate(dados);
-
-            if(!validacao.IsValid)
+            try
             {
-                ViewBag.Sexo = new[]
-                                {
+                var validacao = _editPacienteValidator.Validate(dados);
+
+                if (!validacao.IsValid)
+                {
+                    ViewBag.Sexo = new[]
+                                    {
                     new SelectListItem { Text = "Masculino", Value = SexoEnum.Masculino.ToString()},
                     new SelectListItem { Text = "Feminino", Value = SexoEnum.Feminino.ToString()},
                 };
 
-                validacao.AddToModelState(ModelState, string.Empty);
-                return View(dados);
+                    validacao.AddToModelState(ModelState, string.Empty);
+                    return View(dados);
+                }
+
+                var paciente = _dbContext.Pacientes.Find(id);
+
+                if (paciente != null)
+                {
+                    paciente.Nome = dados.Nome;
+                    paciente.CPF = Regex.Replace(dados.CPF, "[^0-9]", "");
+                    paciente.DataNascimento = dados.DataNascimento;
+                    paciente.Sexo = dados.Sexo;
+                    paciente.Telefone = dados.Telefone;
+                    paciente.Email = dados.Email;
+
+                    _dbContext.Pacientes.Update(paciente);
+                    TempData["MensagemSucesso"] = "Paciente alterado com sucesso!";
+                    _dbContext.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+
+                return NotFound();
             }
-
-            var paciente = _dbContext.Pacientes.Find(id);
-
-            if(paciente != null) 
+            catch (Exception erro) 
             {
-                paciente.Nome = dados.Nome;
-                paciente.CPF = Regex.Replace(dados.CPF, "[^0-9]", "");
-                paciente.DataNascimento = dados.DataNascimento;
-                paciente.Sexo = dados.Sexo;
-                paciente.Telefone = dados.Telefone;
-                paciente.Email = dados.Email;
-
-                _dbContext.Pacientes.Update(paciente);
-                _dbContext.SaveChanges();
-
+                TempData["MensagemErro"] = $"Ops, não conseguimos editar seu paciente, tente novamante, detalhe do erro: {erro.Message}";
                 return RedirectToAction("Index");
             }
-
-            return NotFound();
         }
 
 
@@ -159,17 +177,25 @@ namespace SistemaDeConsulta.Controllers
 
         public IActionResult Delete(int id)
         {
-            var paciente = _dbContext.Pacientes.Find(id);
-
-            if (paciente != null)
+            try
             {
-                _dbContext.Pacientes.Remove(paciente);
-                _dbContext.SaveChanges();
+                var paciente = _dbContext.Pacientes.Find(id);
+
+                if (paciente != null)
+                {
+                    _dbContext.Pacientes.Remove(paciente);
+                    TempData["MensagemSucesso"] = "Paciente excluído com sucesso!";
+                    _dbContext.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                return NotFound();
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Ops, não conseguimos editar seu paciente, tente novamante, detalhe do erro: {erro.Message}";
                 return RedirectToAction("Index");
             }
-
-            return NotFound();
-
         }
     }
 }

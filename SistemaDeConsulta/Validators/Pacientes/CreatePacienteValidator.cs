@@ -13,11 +13,12 @@ namespace SistemaDeConsulta.Validators.Pacientes
                 .MaximumLength(100).WithMessage("O nome deve ter até 100 caracteres.");
 
             RuleFor(x => x.CPF).NotEmpty().WithMessage("Campo obrigatório.")
-                .Must(cpf => Regex.Replace(cpf, "[^0-9]", "").Length == 11).WithMessage("O CPF deve ter até 11 caracteres.")
+                .Must(cpf => cpf != null && Regex.Replace(cpf, "[^0-9]", "").Length == 11).WithMessage("O CPF deve ter até 11 caracteres.")
                 .Must(cpf => !context.Pacientes.Any(p => p.CPF == cpf)).WithMessage("Este CPF já está em uso.");
 
-            RuleFor(x => x.DataNascimento).NotEmpty().WithMessage("Campo obrigatório.")
-                .Must(data => data <= DateTime.Today).WithMessage("A data de nascimento não pode ser futura.");
+            RuleFor(x => x.DataNascimento)
+             .NotEmpty().WithMessage("Campo obrigatório.")
+             .Must(data => data <= DateTime.Today).WithMessage("A data de nascimento não pode ser futura.");
 
             RuleFor(x => x.Sexo).NotNull().WithMessage("Campo obrigatório.");
 
@@ -27,8 +28,6 @@ namespace SistemaDeConsulta.Validators.Pacientes
 
             RuleFor(x => x.Email).NotEmpty().WithMessage("Campo obrigatório.")
                 .EmailAddress().WithMessage("E-mail inválido.");
-
-
         }
     }
 }
