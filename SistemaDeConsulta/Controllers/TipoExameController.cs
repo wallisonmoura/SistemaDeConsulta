@@ -43,24 +43,33 @@ namespace SistemaDeConsulta.Controllers
         [HttpPost]
         public IActionResult Create(CreateTipoExamesViewModel dados)
         {
-            var validacao = _createTipoExameValidator.Validate(dados);
-
-            if (!validacao.IsValid)
+            try
             {
-                validacao.AddToModelState(ModelState, string.Empty);
-                return View(dados);
+                var validacao = _createTipoExameValidator.Validate(dados);
+
+                if (!validacao.IsValid)
+                {
+                    validacao.AddToModelState(ModelState, string.Empty);
+                    return View(dados);
+                }
+
+                var tipoExame = new TipoExame
+                {
+                    Nome = dados.Nome,
+                    Descricao = dados.Descricao
+                };
+
+                _dbContext.TipoExames.Add(tipoExame);
+                TempData["MensagemSucesso"] = "Tipo exame cadastrado com sucesso!";
+                _dbContext.SaveChanges();
+
+                return RedirectToAction("Index");
             }
-
-            var tipoExame = new TipoExame
+            catch (Exception erro)
             {
-                Nome = dados.Nome,
-                Descricao = dados.Descricao
-            };
-
-            _dbContext.TipoExames.Add(tipoExame);
-            _dbContext.SaveChanges();
-
-            return RedirectToAction("Index");
+                TempData["MensagemErro"] = $"Ops, não conseguimos cadastrar seu paciente, tente novamante, detalhe do erro: {erro.Message}";
+                return RedirectToAction("Index");
+            }
         }
 
         public IActionResult Edit(int id)
@@ -84,28 +93,37 @@ namespace SistemaDeConsulta.Controllers
         [HttpPost]
         public IActionResult Edit(int id, EditTipoExamesViewModel dados)
         {
-            var validacao = _editTipoExameValidator.Validate(dados);
-
-            if (!validacao.IsValid)
+            try
             {
-                validacao.AddToModelState(ModelState, string.Empty);
-                return View(dados);
+                var validacao = _editTipoExameValidator.Validate(dados);
+
+                if (!validacao.IsValid)
+                {
+                    validacao.AddToModelState(ModelState, string.Empty);
+                    return View(dados);
+                }
+
+                var tipoExame = _dbContext.TipoExames.Find(id);
+
+                if (tipoExame != null)
+                {
+                    tipoExame.Nome = dados.Nome;
+                    tipoExame.Descricao = dados.Descricao;
+
+                    _dbContext.TipoExames.Update(tipoExame);
+                    TempData["MensagemSucesso"] = "Tipo exame alterado com sucesso!";
+                    _dbContext.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+
+                return NotFound();
             }
-
-            var tipoExame = _dbContext.TipoExames.Find(id);
-
-            if (tipoExame != null)
+            catch (Exception erro)
             {
-                tipoExame.Nome = dados.Nome;
-                tipoExame.Descricao = dados.Descricao;
-
-                _dbContext.TipoExames.Update(tipoExame);
-                _dbContext.SaveChanges();
-
+                TempData["MensagemErro"] = $"Ops, não conseguimos cadastrar seu paciente, tente novamante, detalhe do erro: {erro.Message}";
                 return RedirectToAction("Index");
             }
-
-            return NotFound();
         }
 
         public IActionResult DeleteConfirm(int id)
@@ -116,16 +134,25 @@ namespace SistemaDeConsulta.Controllers
 
         public IActionResult Delete(int id)
         {
-            var tipoExame = _dbContext.TipoExames.Find(id);
-
-            if (tipoExame != null)
+            try
             {
-                _dbContext.TipoExames.Remove(tipoExame);
-                _dbContext.SaveChanges();
+                var tipoExame = _dbContext.TipoExames.Find(id);
+
+                if (tipoExame != null)
+                {
+                    _dbContext.TipoExames.Remove(tipoExame);
+                    TempData["MensagemSucesso"] = "Tipo exame excluído com sucesso!";
+                    _dbContext.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                return NotFound();
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Ops, não conseguimos cadastrar seu paciente, tente novamante, detalhe do erro: {erro.Message}";
                 return RedirectToAction("Index");
             }
-
-            return NotFound();
 
         }
     }
