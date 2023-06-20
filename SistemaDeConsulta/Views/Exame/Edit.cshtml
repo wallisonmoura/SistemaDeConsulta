@@ -1,0 +1,31 @@
+﻿@model SistemaDeConsulta.ViewModels.Exame.EditExameViewModel;
+
+@{
+    ViewData["Title"] = "Editar exame";
+}
+
+<div class="text-center">
+    <h1 class="display-5">Editar exame</h1>
+</div>
+
+<form asp-action="Edit" class="row g-3">
+    <div class="col-md-4">
+        <label asp-for="Nome" class="form-label"></label>
+        <input asp-for="Nome" class="form-control">
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+    <div class="col-md-4">
+        <label asp-for="Observacoes" class="form-label"></label>
+        <input asp-for="Observacoes" class="form-control">
+        <span asp-validation-for="Observacoes" class="text-danger"></span>
+    </div>
+    <div class="col-md-4">
+        <label asp-for="TipoExameId" class="form-label"></label>
+        <select asp-for="TipoExameId" asp-items="@ViewBag.TiposExame" class="form-select"></select>
+        <span asp-validation-for="TipoExameId" class="text-danger"></span>
+    </div>
+    <div class="d-flex gap-2 justify-content-md-end">
+        <button type="submit" class="btn btn-primary">Alterar</button>
+        <a class="btn btn-secondary" asp-controller="Exame" asp-action="Index" role="button">Voltar</a>
+    </div>
+</form>
