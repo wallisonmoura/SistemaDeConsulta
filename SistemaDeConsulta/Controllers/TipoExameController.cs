@@ -66,7 +66,7 @@ namespace SistemaDeConsulta.Controllers
             }
             catch (Exception erro)
             {
-                TempData["MensagemErro"] = $"Ops, não conseguimos cadastrar seu paciente, tente novamante, detalhe do erro: {erro.Message}";
+                TempData["MensagemErro"] = $"Ops, não conseguimos cadastrar seu tipo de exame, tente novamante, detalhe do erro: {erro.Message}";
                 return RedirectToAction("Index");
             }
         }
@@ -120,7 +120,7 @@ namespace SistemaDeConsulta.Controllers
             }
             catch (Exception erro)
             {
-                TempData["MensagemErro"] = $"Ops, não conseguimos cadastrar seu paciente, tente novamante, detalhe do erro: {erro.Message}";
+                TempData["MensagemErro"] = $"Ops, não conseguimos alterar seu tipo de exame, tente novamante, detalhe do erro: {erro.Message}";
                 return RedirectToAction("Index");
             }
         }
@@ -149,7 +149,7 @@ namespace SistemaDeConsulta.Controllers
             }
             catch (Exception erro)
             {
-                TempData["MensagemErro"] = $"Ops, não conseguimos cadastrar seu paciente, tente novamante, detalhe do erro: {erro.Message}";
+                TempData["MensagemErro"] = $"Ops, não conseguimos excluir seu tipo de exame, tente novamante, detalhe do erro: {erro.Message}";
                 return RedirectToAction("Index");
             }
 

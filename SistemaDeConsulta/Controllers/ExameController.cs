@@ -152,20 +152,39 @@ namespace SistemaDeConsulta.Controllers
             }
             catch (Exception erro)
             {
-                TempData["MensagemErro"] = $"Ops, não conseguimos editar seu exame, tente novamante, detalhe do erro: {erro.Message}";
+                TempData["MensagemErro"] = $"Ops, não conseguimos alterar seu exame, tente novamante, detalhe do erro: {erro.Message}";
                 return RedirectToAction("Index");
             }
 
         }
 
-        public IActionResult DeleteConfirm()
+        public IActionResult DeleteConfirm(int id)
         {
-            return View();
+            var exame = _dbContext.Exames.Find(id);
+            return View(exame);
         }
 
-        public IActionResult Delete()
+        public IActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+                var exame = _dbContext.Exames.Find(id);
+
+                if (exame != null)
+                {
+                    _dbContext.Exames.Remove(exame);
+                    TempData["MensagemSucesso"] = "Exame excluído com sucesso!";
+                    _dbContext.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                return NotFound();
+            }
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Ops, não conseguimos excluir seu exame, tente novamante, detalhe do erro: {erro.Message}";
+                return RedirectToAction("Index");
+            }
         }
     }
 }
