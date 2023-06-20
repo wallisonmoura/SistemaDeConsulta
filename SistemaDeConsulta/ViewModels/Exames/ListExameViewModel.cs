@@ -1,6 +1,6 @@
 ﻿using SistemaDeConsulta.Models.Entities;
 
-namespace SistemaDeConsulta.ViewModels.Exame
+namespace SistemaDeConsulta.ViewModels.Exames
 {
     public class ListExameViewModel
     {

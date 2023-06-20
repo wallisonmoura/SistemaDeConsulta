@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SistemaDeConsulta.Data.Context;
 using SistemaDeConsulta.Models.Entities;
-using SistemaDeConsulta.ViewModels.Exame;
+using SistemaDeConsulta.ViewModels.Exames;
 
 namespace SistemaDeConsulta.Controllers
 {

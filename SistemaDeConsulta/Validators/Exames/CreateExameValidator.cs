@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using SistemaDeConsulta.Data.Context;
-using SistemaDeConsulta.ViewModels.Exame;
+using SistemaDeConsulta.ViewModels.Exames;
 
 namespace SistemaDeConsulta.Validators.Exames
 {

@@ -1,7 +1,7 @@
 ﻿using SistemaDeConsulta.Models.Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace SistemaDeConsulta.ViewModels.Exame
+namespace SistemaDeConsulta.ViewModels.Exames
 {
     public class EditExameViewModel
     {

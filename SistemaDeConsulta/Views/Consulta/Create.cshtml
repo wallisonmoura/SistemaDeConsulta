@@ -1,0 +1,35 @@
+﻿@model SistemaDeConsulta.ViewModels.Consultas.CreateConsultaViewModel
+@{
+    ViewData["Title"] = "Criar consulta";
+}
+
+<div class="text-center">
+    <h1 class="display-5">Cadastrar consulta</h1>
+</div>
+
+<form asp-action="Create" class="row g-3">
+    <div class="col-md-4">
+        <label asp-for="PacienteId" class="form-label"></label>
+        <select asp-for="PacienteId" asp-items="ViewBag.Paciente" class="form-select"></select>
+        <span asp-validation-for="PacienteId" class="text-danger"></span>
+    </div>
+    <div class="col-md-4">
+        <label asp-for="ExameId" class="form-label"></label>
+        <select asp-for="ExameId" asp-items="ViewBag.Exame" class="form-select"></select>
+        <span asp-validation-for="ExameId" class="text-danger"></span>
+    </div>
+    <div class="col-md-4">
+        <label asp-for="DataHora" class="form-label"></label>
+        <input asp-for="DataHora" class="form-control">
+        <span asp-validation-for="DataHora" class="text-danger"></span>
+    </div>
+    <div class="col-md-4">
+        <label asp-for="NumeroProtocolo" class="form-label"></label>
+        <input asp-for="NumeroProtocolo" class="form-control">
+        <span asp-validation-for="NumeroProtocolo" class="text-danger"></span>
+    </div>
+    <div class="d-flex gap-2 justify-content-md-end">
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+        <a class="btn btn-secondary" asp-controller="Consulta" asp-action="Index" role="button">Voltar</a>
+    </div>
+</form>

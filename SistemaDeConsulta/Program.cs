@@ -1,9 +1,11 @@
 using FluentValidation;
 using SistemaDeConsulta.Data.Context;
+using SistemaDeConsulta.Validators.Consultas;
 using SistemaDeConsulta.Validators.Exames;
 using SistemaDeConsulta.Validators.Pacientes;
 using SistemaDeConsulta.Validators.TipoExames;
-using SistemaDeConsulta.ViewModels.Exame;
+using SistemaDeConsulta.ViewModels.Consultas;
+using SistemaDeConsulta.ViewModels.Exames;
 using SistemaDeConsulta.ViewModels.Pacientes;
 using SistemaDeConsulta.ViewModels.TipoExames;
 
@@ -19,6 +21,7 @@ builder.Services.AddScoped<IValidator<CreateTipoExamesViewModel>, CreateTipoExam
 builder.Services.AddScoped<IValidator<EditTipoExamesViewModel>, EditTipoExameValidator>();
 builder.Services.AddScoped<IValidator<CreateExameViewModel>, CreateExameValidator>();
 builder.Services.AddScoped<IValidator<EditExameViewModel>, EditExameValidator>();
+builder.Services.AddScoped<IValidator<CreateConsultaViewModel>, CreateConsultaValidator>();
 
 var app = builder.Build();
 
