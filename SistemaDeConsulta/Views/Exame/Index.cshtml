@@ -1,0 +1,68 @@
+﻿@model IEnumerable<SistemaDeConsulta.ViewModels.Exame.ListExameViewModel>;
+
+@{
+    ViewData["Title"] = "Lista de exames";
+}
+
+<div class="text-center">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a role="button" class="btn btn-primary" asp-controller="Exame" asp-action="Create">Adicionar novo exame</a>
+    </div>
+
+    <br />
+
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" data-bs-dismiss="alert" aria-label="Close">X</button>
+            @TempData["MensagemSucesso"]
+        </div>
+    }
+
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" data-bs-dismiss="alert" aria-label="Close">X</button>
+            @TempData["MensagemErro"]
+        </div>
+    }
+
+    <br />
+    <h1 class="display-5">Lista de exames</h1>
+
+    <table class="table table-striped table-bordered">
+        <thead class="text-start">
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Observações</th>
+                <th scope="col">tipo de exame</th>
+               
+            </tr>
+        </thead>
+        <tbody class="text-start">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var m in Model)
+                {
+                    <tr>
+                        <td>@m.Nome</td>
+                        <td>@m.Observacoes</td>
+                        <td>@m.TipoExame</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Ações">
+                                <a role="button" class="btn btn-outline-secondary" asp-controller="Exame" asp-action="Edit" asp-route-id="@m.Id">Editar</a>
+                                <a role="button" type="button" class="btn btn-outline-danger" asp-controller="Exame" asp-action="DeleteConfirm" asp-route-id="@m.Id">Excluir</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="odd"><td valign="top" colspan="7">Nenhum exame encontrado.</td></tr>
+            }
+
+        </tbody>
+    </table>
+
+</div>
