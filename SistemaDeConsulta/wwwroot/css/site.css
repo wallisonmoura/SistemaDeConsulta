@@ -25,3 +25,16 @@ body {
     width: 30px;
     height: 31px;
 }
+
+.table th {
+    width: 150px;
+}
+
+.table td {
+    word-wrap: break-word;
+    max-width: 200px;
+}
+
+.text-end {
+    text-align: right;
+}

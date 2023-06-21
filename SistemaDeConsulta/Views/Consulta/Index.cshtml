@@ -29,34 +29,35 @@
     <br />
     <h1 class="display-5">Lista de consultas</h1>
 
-    <table class="table table-striped">
-        <thead class="text-start">
-            <tr>
-                <th scope="col">Paciente</th>
-                <th scope="col">Exame</th>
-                <th scope="col">Data / Hora</th>
-                <th scope="col">Número de protocolo</th>
-            </tr>
-        </thead>
-        <tbody class="text-start">
-            @if (Model != null && Model.Any())
-            {
-                @foreach (var consulta in Model)
+    <div class="table-responsive table-responsive-sm table-responsive-md">
+        <table class="table table-striped">
+            <thead class="text-start">
+                <tr>
+                    <th scope="col">Paciente</th>
+                    <th scope="col">Exame</th>
+                    <th scope="col">Data / Hora</th>
+                    <th scope="col">Número de protocolo</th>
+                </tr>
+            </thead>
+            <tbody class="text-start">
+                @if (Model != null && Model.Any())
                 {
-                    <tr>
-                        <td>@consulta.PacienteNome</td>
-                        <td>@consulta.ExameNome</td>
-                        <td>@consulta.DataHora</td>
-                        <td>@consulta.NumeroProtocolo</td>
-                    </tr>
+                    @foreach (var consulta in Model)
+                    {
+                        <tr>
+                            <td>@consulta.PacienteNome</td>
+                            <td>@consulta.ExameNome</td>
+                            <td>@consulta.DataHora</td>
+                            <td>@consulta.NumeroProtocolo</td>
+                        </tr>
+                    }
                 }
-            }
-            else
-            {
-                <tr class="odd"><td valign="top" colspan="4">Nenhuma consulta encontrado.</td></tr>
-            }
+                else
+                {
+                    <tr class="odd"><td valign="top" colspan="4">Nenhuma consulta encontrado.</td></tr>
+                }
 
-        </tbody>
-    </table>
-
+            </tbody>
+        </table>
+    </div>
 </div>

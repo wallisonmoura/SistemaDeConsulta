@@ -30,37 +30,38 @@
 
     <h1 class="display-5">Lista de tipos de exames</h1>
 
-    <table class="table table-striped">
-        <thead class="text-start">
-            <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">Descrição</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody class="text-start">
-            @if (Model != null && Model.Any())
-            {
-                @foreach (var m in Model)
+    <div class="table-responsive table-responsive-sm table-responsive-md">
+        <table class="table table-striped">
+            <thead class="text-start">
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col" class="text-end"></th>
+                </tr>
+            </thead>
+            <tbody class="text-start">
+                @if (Model != null && Model.Any())
                 {
-                    <tr>
-                        <td>@m.Nome</td>
-                        <td>@m.Descricao</td>
-                        <td>
-                            <div class="btn-group" role="group" aria-label="Ações">
-                                <a role="button" class="btn btn-outline-secondary" asp-controller="TipoExame" asp-action="Edit" asp-route-id="@m.Id">Editar</a>
-                                <a role="button" type="button" class="btn btn-outline-danger" asp-controller="TipoExame" asp-action="DeleteConfirm" asp-route-id="@m.Id">Excluir</a>
-                            </div>
-                        </td>
-                    </tr>
+                    @foreach (var m in Model)
+                    {
+                        <tr>
+                            <td>@m.Nome</td>
+                            <td>@m.Descricao</td>
+                            <td class="text-end">
+                                <div class="btn-group" role="group" aria-label="Ações">
+                                    <a role="button" class="btn btn-outline-secondary" asp-controller="TipoExame" asp-action="Edit" asp-route-id="@m.Id">Editar</a>
+                                    <a role="button" type="button" class="btn btn-outline-danger" asp-controller="TipoExame" asp-action="DeleteConfirm" asp-route-id="@m.Id">Excluir</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
                 }
-            }
-            else
-            {
-                <tr class="odd"><td valign="top" colspan="5">Nenhum tipo de exame encontrado.</td></tr>
-            }
+                else
+                {
+                    <tr class="odd"><td valign="top" colspan="5">Nenhum tipo de exame encontrado.</td></tr>
+                }
            
-        </tbody>
-    </table>
-
+            </tbody>
+        </table>
+    </div>
 </div>

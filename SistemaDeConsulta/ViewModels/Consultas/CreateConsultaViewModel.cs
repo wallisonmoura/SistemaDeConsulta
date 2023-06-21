@@ -9,7 +9,6 @@ namespace SistemaDeConsulta.ViewModels.Consultas
         public int PacienteId { get; set; }
         public Paciente Pacientes { get; set; }
 
-
         [Display(Name = "Exame")]
         public int ExameId { get; set; }
         public Exame Exames { get; set; }
