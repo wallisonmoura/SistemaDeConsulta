@@ -77,7 +77,7 @@ namespace SistemaDeConsulta.Controllers
                 {
                     Nome = dados.Nome,
                     CPF = Regex.Replace(dados.CPF, "[^0-9]", ""),
-                    DataNascimento = dados.DataNascimento,
+                    DataNascimento = dados.DataNascimento as DateTime? ?? DateTime.MinValue,
                     Sexo = dados.Sexo,
                     Telefone = dados.Telefone,
                     Email = dados.Email
