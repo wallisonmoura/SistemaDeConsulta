@@ -14,7 +14,7 @@ namespace SistemaDeConsulta.ViewModels.Consultas
         public Exame Exames { get; set; }
 
         [Display(Name = "Data / Hora")]
-        public DateTime DataHora { get; set; }
+        public DateTime? DataHora { get; set; }
 
         [Display(Name = "Número de protocolo")]
         public string NumeroProtocolo { get; set; }

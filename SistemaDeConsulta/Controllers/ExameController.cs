@@ -61,6 +61,17 @@ namespace SistemaDeConsulta.Controllers
                 if (!validacao.IsValid)
                 {
                     validacao.AddToModelState(ModelState, string.Empty);
+
+                    var tiposExame = _dbContext.TipoExames.ToList();
+
+                    var tiposExameSelectList = tiposExame.Select(t => new SelectListItem
+                    {
+                        Value = t.Id.ToString(),
+                        Text = t.Nome
+                    }).ToList();
+
+                    ViewBag.TiposExame = tiposExameSelectList;
+
                     return View(dados);
                 };
 

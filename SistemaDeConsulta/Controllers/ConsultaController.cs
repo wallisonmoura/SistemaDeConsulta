@@ -74,6 +74,25 @@ namespace SistemaDeConsulta.Controllers
                 if (!validacao.IsValid)
                 {
                     validacao.AddToModelState(ModelState, string.Empty);
+
+                    var pacientes = _dbContext.Pacientes.ToList();
+                    var exames = _dbContext.Exames.ToList();
+
+                    var pacienteItems = pacientes.Select(p => new SelectListItem
+                    {
+                        Value = p.Id.ToString(),
+                        Text = p.Nome
+                    }).ToList();
+
+                    var exameItems = exames.Select(e => new SelectListItem
+                    {
+                        Value = e.Id.ToString(),
+                        Text = e.Nome
+                    }).ToList();
+
+                    ViewBag.Paciente = pacienteItems;
+                    ViewBag.Exame = exameItems;
+
                     return View(dados);
                 }
 
@@ -81,7 +100,7 @@ namespace SistemaDeConsulta.Controllers
                 {
                     PacientId = dados.PacienteId,
                     ExameId = dados.ExameId,
-                    DataHora = dados.DataHora,
+                    DataHora = dados.DataHora as DateTime? ?? DateTime.MinValue,
                     NumeroProtocolo = dados.NumeroProtocolo
                 };
 

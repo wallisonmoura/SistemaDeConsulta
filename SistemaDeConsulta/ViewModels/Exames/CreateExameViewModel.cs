@@ -12,6 +12,6 @@ namespace SistemaDeConsulta.ViewModels.Exames
         [Display(Name = "Tipo de exame")]
         public int TipoExameId { get; set; }
 
-        public TipoExame TipoExame { get; set; }
+        public TipoExame TipoExame { get; set; } = null!;
     }
 }
