@@ -96,12 +96,14 @@ namespace SistemaDeConsulta.Controllers
                     return View(dados);
                 }
 
+                var numeroProtocolo = GerarNumeroProtocolo();
+
                 var consulta = new Consulta
                 {
                     PacientId = dados.PacienteId,
                     ExameId = dados.ExameId,
                     DataHora = dados.DataHora as DateTime? ?? DateTime.MinValue,
-                    NumeroProtocolo = dados.NumeroProtocolo
+                    NumeroProtocolo = numeroProtocolo
                 };
 
                 _dbContext.Consultas.Add(consulta);
@@ -115,6 +117,20 @@ namespace SistemaDeConsulta.Controllers
                 TempData["MensagemErro"] = $"Ops, não conseguimos cadastrar sua consulta, tente novamante, detalhe do erro: {erro.Message}";
                 return RedirectToAction("Index");
             }
+        }
+        private string GerarNumeroProtocolo()
+        {
+            var ultimoProtocolo = _dbContext.Consultas.OrderByDescending(c => c.Id).FirstOrDefault()?.NumeroProtocolo;
+            int ultimoNumero = 0;
+
+            if (!string.IsNullOrEmpty(ultimoProtocolo) && int.TryParse(ultimoProtocolo, out int parsedNumero))
+            {
+                ultimoNumero = parsedNumero;
+            }
+
+            int novoNumero = ultimoNumero + 1;
+            string novoProtocolo = novoNumero.ToString().PadLeft(4, '0'); // Número formatado com 4 dígitos, preenchido com zeros à esquerda
+            return novoProtocolo;
         }
     }
 }

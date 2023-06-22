@@ -14,9 +14,7 @@ namespace SistemaDeConsulta.Validators.Consultas
 
             RuleFor(x => x.DataHora).NotEmpty().WithMessage("Campo obrigatório.")
                 .Must(dataHora => !context.Consultas.Any(c => c.DataHora == dataHora))
-                .WithMessage("Conflito de horários. Escolha uma data e hora diferente..");
-
-            RuleFor(x => x.NumeroProtocolo).NotEmpty().WithMessage("Campo obrigatório.");
+                .WithMessage("Conflito de horários. Escolha uma data e hora diferente.");
         }
     }
 }
