@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using SistemaDeConsulta.Data.Context;
 using SistemaDeConsulta.Models.Entities;
 using SistemaDeConsulta.ViewModels.Consultas;
-using SistemaDeConsulta.ViewModels.Pacientes;
 
 namespace SistemaDeConsulta.Controllers
 {
@@ -98,6 +97,7 @@ namespace SistemaDeConsulta.Controllers
                     return View(dados);
                 }
 
+                // Em caso de não haver paciente, ter um redirecionamento para cadastrar paciente
                 var pacienteExistente = _dbContext.Pacientes.Any(p => p.Id == dados.PacienteId);
                 if (!pacienteExistente)
                 {
@@ -106,6 +106,20 @@ namespace SistemaDeConsulta.Controllers
                 }
 
                 ViewBag.CadastrarPaciente = false;
+
+                // Verificar conflito de horários com intervalo de 30 minutos
+                var dataHoraConsulta = dados.DataHora ?? DateTime.MinValue;
+                var dataHoraFimConsulta = dataHoraConsulta.AddMinutes(30);
+
+                var conflito = _dbContext.Consultas.Any(c =>
+                    (c.DataHora >= dataHoraConsulta && c.DataHora < dataHoraFimConsulta) ||
+                    (dataHoraConsulta >= c.DataHora && dataHoraConsulta < c.DataHora.AddMinutes(30)));
+
+                if (conflito)
+                {
+                    TempData["MensagemErro"] = "Já existe uma consulta agendada para o horário informado.";
+                    return RedirectToAction("Index");
+                }
 
                 var numeroProtocolo = GerarNumeroProtocolo();
 
@@ -129,6 +143,8 @@ namespace SistemaDeConsulta.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        // Para gerar número de protocolo sequencial automático
         private string GerarNumeroProtocolo()
         {
             var ultimoProtocolo = _dbContext.Consultas.OrderByDescending(c => c.Id).FirstOrDefault()?.NumeroProtocolo;
