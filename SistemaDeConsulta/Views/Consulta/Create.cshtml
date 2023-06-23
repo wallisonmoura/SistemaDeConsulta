@@ -6,7 +6,12 @@
 <div class="text-center">
     <h1 class="display-5">Cadastrar consulta</h1>
 </div>
-
+@if (ViewBag.CadastrarPaciente == true)
+{
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="@Url.Action("Create", "Paciente")" class="btn btn-primary">Cadastrar Paciente</a>
+    </div>
+}
 <form asp-action="Create" class="row g-3">
     <div class="col-md-4">
         <label asp-for="PacienteId" class="form-label"></label>

@@ -60,6 +60,8 @@ namespace SistemaDeConsulta.Controllers
             ViewBag.Paciente = pacienteItems;
             ViewBag.Exame = exameItems;
 
+            ViewBag.CadastrarPaciente = pacientes.Count == 0;
+
             return View();
             
         }
@@ -96,13 +98,22 @@ namespace SistemaDeConsulta.Controllers
                     return View(dados);
                 }
 
+                var pacienteExistente = _dbContext.Pacientes.Any(p => p.Id == dados.PacienteId);
+                if (!pacienteExistente)
+                {
+                    ViewBag.CadastrarPaciente = true;
+                    return RedirectToAction("Create", "Paciente");
+                }
+
+                ViewBag.CadastrarPaciente = false;
+
                 var numeroProtocolo = GerarNumeroProtocolo();
 
                 var consulta = new Consulta
                 {
                     PacientId = dados.PacienteId,
                     ExameId = dados.ExameId,
-                    DataHora = dados.DataHora as DateTime? ?? DateTime.MinValue,
+                    DataHora = dados.DataHora ?? DateTime.MinValue,
                     NumeroProtocolo = numeroProtocolo
                 };
 
@@ -129,7 +140,7 @@ namespace SistemaDeConsulta.Controllers
             }
 
             int novoNumero = ultimoNumero + 1;
-            string novoProtocolo = novoNumero.ToString().PadLeft(4, '0'); // Número formatado com 4 dígitos, preenchido com zeros à esquerda
+            string novoProtocolo = novoNumero.ToString().PadLeft(4, '0');
             return novoProtocolo;
         }
     }
